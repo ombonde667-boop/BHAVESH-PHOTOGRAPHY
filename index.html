@@ -1,0 +1,3542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BSP Photography Studio | Bhavesh Satinge</title>
+
+<meta name="description"
+content="BSP Photography Studio by Bhavesh Satinge - Wedding, Pre-Wedding, Portrait and Event Photography.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<!-- SUPABASE JS LIBRARY -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:#050505;
+    color:#fff;
+    line-height:1.6;
+    overflow-x:hidden;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+img{
+    max-width:100%;
+    display:block;
+}
+
+button,
+input,
+select,
+textarea{
+    font-family:inherit;
+}
+
+:root{
+    --gold:#d4af37;
+    --gold-light:#f3d77a;
+    --black:#050505;
+    --dark:#0b0b0b;
+    --card:#111;
+    --border:rgba(212,175,55,.25);
+    --muted:#aaa;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+    padding:14px 5%;
+    background:rgba(0,0,0,.82);
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.nav-container{
+    max-width:1300px;
+    margin:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    white-space:nowrap;
+}
+
+.logo-bsp{
+    font-family:'Great Vibes',cursive;
+    font-size:40px;
+    color:var(--gold);
+    line-height:1;
+}
+
+.logo-text{
+    color:#fff;
+    font-size:20px;
+    font-weight:700;
+    letter-spacing:1px;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:25px;
+    list-style:none;
+}
+
+.nav-links a{
+    font-size:13px;
+    color:#ddd;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:var(--gold);
+}
+
+.nav-btn{
+    border:1px solid var(--gold);
+    padding:8px 15px;
+    border-radius:30px;
+    color:var(--gold)!important;
+}
+
+.nav-btn:hover{
+    background:var(--gold);
+    color:#000!important;
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+.menu-toggle{
+    width:42px;
+    height:42px;
+    display:none;
+    align-items:center;
+    justify-content:center;
+
+    border:1px solid rgba(212,175,55,.5);
+    background:#080808;
+    color:var(--gold);
+
+    border-radius:10px;
+    cursor:pointer;
+    font-size:22px;
+}
+
+.mobile-menu{
+    display:none;
+    max-width:1300px;
+    margin:12px auto 0;
+    padding:10px;
+
+    background:#0b0b0b;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:12px;
+}
+
+.mobile-menu.active{
+    display:block;
+}
+
+.mobile-menu a{
+    display:block;
+    padding:12px 14px;
+    color:#ddd;
+    border-radius:8px;
+}
+
+.mobile-menu a:hover{
+    background:#171717;
+    color:var(--gold);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    position:relative;
+    min-height:100vh;
+
+    padding-top:75px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#050505;
+    overflow:hidden;
+}
+
+.hero-image-wrap{
+    position:relative;
+
+    width:100%;
+    max-width:1500px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    margin:auto;
+}
+
+.hero-image{
+    width:100%;
+    height:auto;
+
+    max-height:calc(100vh - 90px);
+
+    object-fit:contain;
+    object-position:center;
+
+    display:block;
+}
+
+.hero-overlay{
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.05) 45%,
+            rgba(5,5,5,.25) 70%,
+            #050505 100%
+        );
+
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   COMMON
+========================================================= */
+
+section{
+    padding:90px 5%;
+}
+
+.container{
+    max-width:1250px;
+    margin:auto;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title small{
+    color:var(--gold);
+    letter-spacing:3px;
+    font-size:11px;
+    font-weight:700;
+}
+
+.section-title h2{
+    font-family:'Playfair Display',serif;
+    font-size:42px;
+    margin-top:8px;
+}
+
+.section-title p{
+    color:#999;
+    max-width:650px;
+    margin:12px auto 0;
+    font-size:14px;
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:70px;
+    align-items:center;
+}
+
+.about-image{
+    position:relative;
+}
+
+.about-image img{
+    width:100%;
+    height:550px;
+    object-fit:cover;
+    object-position:center;
+
+    border-radius:12px;
+    border:1px solid var(--border);
+}
+
+.about-image::after{
+    content:"";
+
+    position:absolute;
+
+    width:90px;
+    height:90px;
+
+    border:1px solid var(--gold);
+
+    right:-15px;
+    bottom:-15px;
+
+    z-index:-1;
+}
+
+.about-content small{
+    color:var(--gold);
+    letter-spacing:3px;
+}
+
+.about-content h2{
+    font-family:'Playfair Display',serif;
+    font-size:42px;
+    margin:10px 0;
+}
+
+.about-content h3{
+    color:var(--gold);
+    font-size:17px;
+    margin-bottom:18px;
+}
+
+.about-content p{
+    color:#aaa;
+    margin-bottom:18px;
+    font-size:15px;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn{
+    padding:13px 25px;
+    border-radius:30px;
+    font-size:14px;
+    font-weight:600;
+    transition:.3s;
+    cursor:pointer;
+    display:inline-block;
+    border:none;
+}
+
+.btn-gold{
+    background:var(--gold);
+    color:#000;
+}
+
+.btn-gold:hover{
+    background:var(--gold-light);
+    transform:translateY(-2px);
+}
+
+.btn-outline{
+    border:1px solid var(--gold);
+    background:transparent;
+    color:var(--gold);
+}
+
+.btn-outline:hover{
+    background:var(--gold);
+    color:#000;
+}
+
+
+/* =========================================================
+   SERVICES
+========================================================= */
+
+.services{
+    background:#080808;
+}
+
+.services-grid{
+    max-width:1200px;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.service-card{
+    background:var(--card);
+
+    padding:32px 22px;
+
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:10px;
+
+    transition:.35s;
+}
+
+.service-card:hover{
+    transform:translateY(-7px);
+    border-color:var(--gold);
+}
+
+.service-number{
+    color:var(--gold);
+    font-size:12px;
+    letter-spacing:2px;
+}
+
+.service-card h3{
+    font-family:'Playfair Display',serif;
+    margin:15px 0 10px;
+    font-size:22px;
+}
+
+.service-card p{
+    color:#999;
+    font-size:13px;
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.gallery-section{
+    background:#050505;
+}
+
+.gallery-category{
+    max-width:1250px;
+    margin:0 auto 75px;
+}
+
+.category-heading{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+
+    margin-bottom:22px;
+}
+
+.category-heading h3{
+    font-family:'Playfair Display',serif;
+    font-size:28px;
+}
+
+.category-heading span{
+    color:var(--gold);
+    font-size:11px;
+    letter-spacing:2px;
+}
+
+.gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+}
+
+.gallery-item{
+    position:relative;
+    overflow:hidden;
+
+    border-radius:9px;
+
+    height:380px;
+
+    background:#111;
+
+    border:1px solid rgba(255,255,255,.06);
+}
+
+.gallery-item img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+    object-position:center;
+
+    transition:.5s;
+}
+
+.gallery-item:hover img{
+    transform:scale(1.06);
+}
+
+.gallery-overlay{
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            transparent 50%,
+            rgba(0,0,0,.72)
+        );
+
+    opacity:0;
+    transition:.3s;
+}
+
+.gallery-item:hover .gallery-overlay{
+    opacity:1;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact{
+    background:#080808;
+}
+
+.contact-grid{
+    max-width:1100px;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:.8fr 1.2fr;
+    gap:50px;
+}
+
+.contact-info h3{
+    font-family:'Playfair Display',serif;
+    font-size:32px;
+    margin-bottom:15px;
+}
+
+.contact-info p{
+    color:#999;
+    margin-bottom:20px;
+}
+
+.contact-link{
+    display:block;
+    color:#ddd;
+    margin:14px 0;
+    transition:.3s;
+}
+
+.contact-link:hover{
+    color:var(--gold);
+}
+
+.contact-form{
+    background:#111;
+
+    padding:30px;
+
+    border-radius:10px;
+
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+.form-group label{
+    display:block;
+
+    font-size:12px;
+    color:#aaa;
+
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+
+    background:#080808;
+
+    border:1px solid #292929;
+
+    color:#fff;
+
+    padding:13px;
+
+    border-radius:6px;
+
+    outline:none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    border-color:var(--gold);
+}
+
+.form-group textarea{
+    min-height:120px;
+    resize:vertical;
+}
+
+.form-message{
+    margin-top:12px;
+    color:var(--gold);
+    font-size:13px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    padding:30px 5%;
+
+    background:#020202;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+    text-align:center;
+}
+
+footer p{
+    color:#777;
+    font-size:13px;
+}
+
+footer strong{
+    color:var(--gold);
+}
+
+
+/* =========================================================
+   ADMIN FLOATING BUTTON
+========================================================= */
+
+.admin-open{
+    position:fixed;
+
+    right:22px;
+    bottom:22px;
+
+    z-index:1100;
+
+    width:56px;
+    height:56px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(212,175,55,.7);
+
+    background:
+        linear-gradient(
+            145deg,
+            #171717,
+            #050505
+        );
+
+    color:var(--gold);
+
+    cursor:pointer;
+
+    font-size:20px;
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.6),
+        0 0 20px rgba(212,175,55,.08);
+
+    transition:.3s;
+}
+
+.admin-open:hover{
+    transform:translateY(-4px) rotate(5deg);
+    background:var(--gold);
+    color:#000;
+}
+
+.admin-tooltip{
+    position:fixed;
+
+    right:88px;
+    bottom:35px;
+
+    z-index:1099;
+
+    background:#111;
+    color:#ddd;
+
+    padding:8px 13px;
+
+    border-radius:7px;
+
+    font-size:11px;
+
+    opacity:0;
+    pointer-events:none;
+
+    transform:translateX(8px);
+
+    transition:.3s;
+
+    border:1px solid rgba(255,255,255,.1);
+}
+
+.admin-open:hover + .admin-tooltip{
+    opacity:1;
+    transform:translateX(0);
+}
+
+
+/* =========================================================
+   ADMIN OVERLAY
+========================================================= */
+
+.admin-overlay{
+    position:fixed;
+
+    inset:0;
+
+    z-index:2000;
+
+    background:rgba(0,0,0,.94);
+
+    display:none;
+
+    overflow:auto;
+
+    padding:30px 15px;
+}
+
+.admin-overlay.active{
+    display:block;
+}
+
+
+/* =========================================================
+   ADMIN LOGIN
+========================================================= */
+
+.admin-login{
+    width:min(430px,100%);
+
+    margin:80px auto;
+
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #0b0b0b
+        );
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:35px;
+
+    box-shadow:0 25px 80px rgba(0,0,0,.6);
+}
+
+.admin-logo{
+    width:58px;
+    height:58px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    margin:0 auto 18px;
+
+    border:1px solid var(--gold);
+
+    color:var(--gold);
+
+    font-size:24px;
+}
+
+.admin-login h2{
+    font-family:'Playfair Display',serif;
+    color:var(--gold);
+
+    text-align:center;
+
+    margin-bottom:7px;
+}
+
+.admin-subtitle{
+    text-align:center;
+    color:#777;
+
+    font-size:12px;
+
+    margin-bottom:25px;
+}
+
+.admin-login-buttons{
+    display:flex;
+    gap:10px;
+    margin-top:5px;
+}
+
+.admin-login-buttons button{
+    flex:1;
+}
+
+
+/* =========================================================
+   ADMIN DASHBOARD
+========================================================= */
+
+.admin-dashboard{
+    width:min(1200px,100%);
+
+    margin:10px auto 50px;
+
+    display:none;
+}
+
+.admin-dashboard.active{
+    display:block;
+}
+
+.admin-header{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    margin-bottom:25px;
+
+    padding:20px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:14px;
+
+    background:#0d0d0d;
+}
+
+.admin-header h2{
+    font-family:'Playfair Display',serif;
+    color:var(--gold);
+}
+
+.admin-header small{
+    color:#777;
+    display:block;
+    margin-top:3px;
+}
+
+.admin-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.admin-card{
+    background:#111;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    padding:25px;
+
+    border-radius:14px;
+
+    margin-bottom:25px;
+}
+
+.admin-card h3{
+    margin-bottom:20px;
+    color:#fff;
+}
+
+.admin-upload-row{
+    display:grid;
+
+    grid-template-columns:1fr 1fr auto;
+
+    gap:12px;
+
+    align-items:end;
+}
+
+.admin-upload-row select,
+.admin-upload-row input{
+    width:100%;
+
+    background:#080808;
+
+    color:#fff;
+
+    border:1px solid #292929;
+
+    padding:12px;
+
+    border-radius:6px;
+}
+
+.admin-upload-row input[type="file"]{
+    padding:9px;
+}
+
+.admin-list{
+    display:grid;
+    gap:10px;
+}
+
+.admin-item{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    background:#080808;
+
+    border:1px solid rgba(255,255,255,.06);
+
+    padding:12px;
+
+    border-radius:8px;
+}
+
+.admin-item-info{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    min-width:0;
+}
+
+.admin-item img{
+    width:70px;
+    height:55px;
+
+    object-fit:cover;
+
+    border-radius:5px;
+
+    flex-shrink:0;
+}
+
+.admin-item-text{
+    min-width:0;
+}
+
+.admin-item-text strong{
+    display:block;
+}
+
+.delete-btn{
+    background:#1a0808;
+
+    border:1px solid #662020;
+
+    color:#ff7777;
+
+    padding:8px 12px;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+    flex-shrink:0;
+}
+
+.delete-btn:hover{
+    background:#351010;
+}
+
+
+/* =========================================================
+   RESPONSIVE TABLET
+========================================================= */
+
+@media(max-width:1000px){
+
+    .nav-links{
+        gap:16px;
+    }
+
+    .nav-links a{
+        font-size:12px;
+    }
+
+    .services-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .about-grid{
+        grid-template-columns:1fr;
+        gap:45px;
+    }
+
+    .about-image img{
+        height:500px;
+    }
+
+    .contact-grid{
+        grid-template-columns:1fr;
+        gap:35px;
+    }
+
+    .gallery-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .admin-upload-row{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .admin-upload-row button{
+        grid-column:1 / -1;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:700px){
+
+    body{
+        font-size:14px;
+    }
+
+    .navbar{
+        padding:12px 4%;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+    .menu-toggle{
+        display:flex;
+    }
+
+    .logo-bsp{
+        font-size:34px;
+    }
+
+    .logo-text{
+        font-size:16px;
+    }
+
+    .hero{
+        min-height:auto;
+        padding-top:70px;
+        background:#050505;
+    }
+
+    .hero-image{
+        width:100%;
+        max-height:none;
+        height:auto;
+        object-fit:contain;
+    }
+
+    section{
+        padding:65px 5%;
+    }
+
+    .section-title{
+        margin-bottom:35px;
+    }
+
+    .section-title h2{
+        font-size:32px;
+    }
+
+    .section-title p{
+        font-size:13px;
+    }
+
+    .about-image img{
+        height:auto;
+        max-height:none;
+        object-fit:contain;
+    }
+
+    .about-image::after{
+        width:60px;
+        height:60px;
+        right:-8px;
+        bottom:-8px;
+    }
+
+    .about-content h2{
+        font-size:32px;
+    }
+
+    .services-grid{
+        grid-template-columns:1fr;
+    }
+
+    .gallery-category{
+        margin-bottom:55px;
+    }
+
+    .category-heading{
+        align-items:flex-start;
+    }
+
+    .category-heading h3{
+        font-size:23px;
+    }
+
+    .category-heading span{
+        font-size:9px;
+    }
+
+    .gallery-grid{
+        grid-template-columns:1fr;
+        gap:14px;
+    }
+
+    .gallery-item{
+        height:auto;
+        aspect-ratio:4 / 5;
+    }
+
+    .contact-form{
+        padding:20px;
+    }
+
+    .contact-info h3{
+        font-size:28px;
+    }
+
+    .admin-open{
+        width:52px;
+        height:52px;
+        right:16px;
+        bottom:16px;
+    }
+
+    .admin-tooltip{
+        display:none;
+    }
+
+    .admin-overlay{
+        padding:15px 10px;
+    }
+
+    .admin-login{
+        margin:45px auto;
+        padding:25px 20px;
+    }
+
+    .admin-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .admin-actions{
+        width:100%;
+    }
+
+    .admin-actions .btn{
+        flex:1;
+        text-align:center;
+    }
+
+    .admin-upload-row{
+        grid-template-columns:1fr;
+    }
+
+    .admin-upload-row button{
+        grid-column:auto;
+        width:100%;
+    }
+
+    .admin-item{
+        align-items:flex-start;
+    }
+
+    .admin-item-info{
+        align-items:flex-start;
+    }
+
+    .admin-item img{
+        width:60px;
+        height:60px;
+    }
+
+    .delete-btn{
+        padding:7px 9px;
+        font-size:11px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media(max-width:400px){
+
+    .logo-bsp{
+        font-size:30px;
+    }
+
+    .logo-text{
+        font-size:14px;
+    }
+
+    .section-title h2{
+        font-size:29px;
+    }
+
+    .gallery-item{
+        aspect-ratio:4 / 5;
+    }
+
+    .admin-login-buttons{
+        flex-direction:column;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<header class="navbar">
+
+    <div class="nav-container">
+
+        <a href="#home" class="logo">
+
+            <span class="logo-bsp">BSP</span>
+
+            <span class="logo-text">
+                PHOTOGRAPHY
+            </span>
+
+        </a>
+
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="#home">Home</a>
+            </li>
+
+            <li>
+                <a href="#about">About</a>
+            </li>
+
+            <li>
+                <a href="#services">Services</a>
+            </li>
+
+            <li>
+                <a href="#gallery">Gallery</a>
+            </li>
+
+            <li>
+                <a href="#contact">Contact</a>
+            </li>
+
+            <li>
+                <a
+                    href="#"
+                    onclick="openWhatsApp(); return false;"
+                    class="nav-btn"
+                >
+                    WhatsApp
+                </a>
+            </li>
+
+        </ul>
+
+
+        <button
+            class="menu-toggle"
+            id="menuToggle"
+            onclick="toggleMobileMenu()"
+            aria-label="Open Menu"
+        >
+            ☰
+        </button>
+
+    </div>
+
+
+    <!-- MOBILE MENU -->
+
+    <div
+        class="mobile-menu"
+        id="mobileMenu"
+    >
+
+        <a href="#home" onclick="closeMobileMenu()">
+            Home
+        </a>
+
+        <a href="#about" onclick="closeMobileMenu()">
+            About
+        </a>
+
+        <a href="#services" onclick="closeMobileMenu()">
+            Services
+        </a>
+
+        <a href="#gallery" onclick="closeMobileMenu()">
+            Gallery
+        </a>
+
+        <a href="#contact" onclick="closeMobileMenu()">
+            Contact
+        </a>
+
+        <a
+            href="#"
+            onclick="openWhatsApp(); return false;"
+        >
+            💬 WhatsApp
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section
+    class="hero"
+    id="home"
+>
+
+    <div class="hero-image-wrap">
+
+        <img
+            src="owner.jpg"
+            alt="BSP Photography Studio"
+            class="hero-image"
+        >
+
+        <div class="hero-overlay"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ABOUT
+========================================================= -->
+
+<section id="about">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <small>ABOUT THE STUDIO</small>
+
+            <h2>Behind The Camera</h2>
+
+        </div>
+
+
+        <div class="about-grid">
+
+
+            <div class="about-image">
+
+                <img
+                    src="owner.jpg"
+                    alt="Bhavesh Satinge - BSP Photography Studio"
+                    loading="lazy"
+                >
+
+            </div>
+
+
+            <div class="about-content">
+
+                <small>BSP PHOTOGRAPHY STUDIO</small>
+
+                <h2>Bhavesh Satinge</h2>
+
+                <h3>Founder & Photographer</h3>
+
+                <p>
+                    BSP Photography Studio is dedicated to capturing
+                    weddings, pre-wedding sessions, portraits and special
+                    events with a premium photography experience.
+                </p>
+
+                <p>
+                    Every shoot is planned around natural expressions,
+                    beautiful compositions and meaningful moments so that
+                    every photograph feels personal and authentic.
+                </p>
+
+                <a
+                    href="#"
+                    onclick="openWhatsApp(); return false;"
+                    class="btn btn-gold"
+                >
+                    Contact Bhavesh
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SERVICES
+========================================================= -->
+
+<section
+    class="services"
+    id="services"
+>
+
+    <div class="section-title">
+
+        <small>WHAT WE DO</small>
+
+        <h2>Our Services</h2>
+
+        <p>
+            Professional photography services for weddings,
+            celebrations, portraits and special events.
+        </p>
+
+    </div>
+
+
+    <div class="services-grid">
+
+
+        <div class="service-card">
+
+            <span class="service-number">
+                01
+            </span>
+
+            <h3>
+                Wedding Photography
+            </h3>
+
+            <p>
+                Complete wedding photography covering ceremonies,
+                family portraits and important celebrations.
+            </p>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <span class="service-number">
+                02
+            </span>
+
+            <h3>
+                Pre-Wedding
+            </h3>
+
+            <p>
+                Couple photography sessions with natural portraits
+                and creative outdoor compositions.
+            </p>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <span class="service-number">
+                03
+            </span>
+
+            <h3>
+                Portraits
+            </h3>
+
+            <p>
+                Professional individual and couple portraits
+                with premium lighting and composition.
+            </p>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <span class="service-number">
+                04
+            </span>
+
+            <h3>
+                Events
+            </h3>
+
+            <p>
+                Birthday parties, receptions, celebrations and
+                other important events captured professionally.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     GALLERY
+========================================================= -->
+
+<section
+    class="gallery-section"
+    id="gallery"
+>
+
+    <div class="section-title">
+
+        <small>OUR WORK</small>
+
+        <h2>Photography Portfolio</h2>
+
+        <p>
+            Maharashtra-inspired wedding, pre-wedding,
+            portrait and event photography.
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         WEDDING
+    ====================================================== -->
+
+    <div class="gallery-category">
+
+        <div class="category-heading">
+
+            <h3>
+                Wedding Photography
+            </h3>
+
+            <span>
+                MAHARASHTRA
+            </span>
+
+        </div>
+
+
+        <div
+            class="gallery-grid"
+            id="gallery-wedding"
+        >
+
+
+            <div
+                class="gallery-item"
+                data-default-photo="wedding-1"
+            >
+
+                <img
+                    src="https://images.pexels.com/photos/38961893/pexels-photo-38961893.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                    alt="Maharashtra traditional wedding ceremony"
+                    loading="lazy"
+                >
+
+                <div class="gallery-overlay"></div>
+
+            </div>
+
+
+            <div
+                class="gallery-item"
+                data-default-photo="wedding-2"
+            >
+
+                <img
+                    src="https://images.pexels.com/photos/37035285/pexels-photo-37035285.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                    alt="Mumbai Maharashtra wedding procession"
+                    loading="lazy"
+                >
+
+                <div class="gallery-overlay"></div>
+
+            </div>
+
+
+            <div
+                class="gallery-item"
+                data-default-photo="wedding-3"
+            >
+
+                <img
+                    src="https://images.pexels.com/photos/21008995/pexels-photo-21008995.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                    alt="Traditional wedding in Nagpur Maharashtra"
+                    loading="lazy"
+                >
+
+                <div class="gallery-overlay"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         PRE WEDDING
+    ====================================================== -->
+
+    <div class="gallery-category">
+
+        <div class="category-heading">
+
+            <h3>
+                Pre-Wedding
+            </h3>
+
+            <span>
+                PUNE / MAHARASHTRA
+            </span>
+
+        </div>
+
+
+        <div
+            class="gallery-grid"
+            id="gallery-prewedding"
+        >
+
+
+            <div
+                class="gallery-item"
+                data-default-photo="pre-1"
+            >
+
+                <img
+                    src="https://images.pexels.com/photos/31790420/pexels-photo-31790420.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                    alt="Traditional couple pre wedding Pune Maharashtra"
+                    loading="lazy"
+                >
+
+                <div class="gallery-overlay"></div>
+
+            </div>
+
+
+            <div
+                class="gallery-item"
+                data-default-photo="pre-2"
+            >
+
+                <img
+                    src="https://images.pexels.com/photos/31790425/pexels-photo-31790425.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                    alt="Couple pre wedding photography Pune Maharashtra"
+                    loading="lazy"
+                >
+
+                <div class="gallery-overlay"></div>
+
+            </div>
+
+
+            <div
+                class="gallery-item"
+                data-default-photo="pre-3"
+            >
+
+                <img
+                    src="https://images.pexels.com/photos/27079973/pexels-photo-27079973.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                    alt="Indian couple outdoor pre wedding Pune"
+                    loading="lazy"
+                >
+
+                <div class="gallery-overlay"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         PORTRAITS
+    ====================================================== -->
+
+    <div class="gallery-category">
+
+        <div class="category-heading">
+
+            <h3>
+                Portraits
+            </h3>
+
+            <span>
+                MAHARASHTRA
+            </span>
+
+        </div>
+
+
+        <div
+            class="gallery-grid"
+            id="gallery-portraits"
+        >
+
+
+            <div
+                class="gallery-item"
+                data-default-photo="portrait-1"
+            >
+
+                <img
+                    src="https://images.pexels.com/photos/38961898/pexels-photo-38961898.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                    alt="Maharashtrian bride portrait"
+                    loading="lazy"
+                >
+
+                <div class="gallery-overlay"></div>
+
+            </div>
+
+
+            <div
+                class="gallery-item"
+                data-default-photo="portrait-2"
+            >
+
+                <img
+                    src="https://images.pexels.com/photos/36854102/pexels-photo-36854102.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                    alt="Maharashtrian traditional woman portrait"
+                    loading="lazy"
+                >
+
+                <div class="gallery-overlay"></div>
+
+            </div>
+
+
+            <div
+                class="gallery-item"
+                data-default-photo="portrait-3"
+            >
+
+                <img
+                    src="https://images.pexels.com/photos/20442944/pexels-photo-20442944.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                    alt="Maharashtrian woman portrait from Nashik"
+                    loading="lazy"
+                >
+
+                <div class="gallery-overlay"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         EVENTS
+    ====================================================== -->
+
+    <div class="gallery-category">
+
+        <div class="category-heading">
+
+            <h3>
+                Events
+            </h3>
+
+            <span>
+                PUNE / MUMBAI
+            </span>
+
+        </div>
+
+
+        <div
+            class="gallery-grid"
+            id="gallery-events"
+        >
+
+
+            <div
+                class="gallery-item"
+                data-default-photo="event-1"
+            >
+
+                <img
+                    src="https://images.pexels.com/photos/33437392/pexels-photo-33437392.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                    alt="Traditional Pune Maharashtra procession"
+                    loading="lazy"
+                >
+
+                <div class="gallery-overlay"></div>
+
+            </div>
+
+
+            <div
+                class="gallery-item"
+                data-default-photo="event-2"
+            >
+
+                <img
+                    src="https://images.pexels.com/photos/33437357/pexels-photo-33437357.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                    alt="Traditional Palkhi festival Pune Maharashtra"
+                    loading="lazy"
+                >
+
+                <div class="gallery-overlay"></div>
+
+            </div>
+
+
+            <div
+                class="gallery-item"
+                data-default-photo="event-3"
+            >
+
+                <img
+                    src="https://images.pexels.com/photos/36779551/pexels-photo-36779551.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                    alt="Gudi Padwa celebration Mumbai Maharashtra"
+                    loading="lazy"
+                >
+
+                <div class="gallery-overlay"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CONTACT
+========================================================= -->
+
+<section
+    class="contact"
+    id="contact"
+>
+
+    <div class="section-title">
+
+        <small>
+            GET IN TOUCH
+        </small>
+
+        <h2>
+            Book Your Shoot
+        </h2>
+
+        <p>
+            Tell us about your photography requirement.
+        </p>
+
+    </div>
+
+
+    <div class="contact-grid">
+
+
+        <div class="contact-info">
+
+            <h3>
+                Let's Create Something Special
+            </h3>
+
+            <p>
+                Contact BSP Photography Studio for wedding,
+                pre-wedding, portrait and event photography.
+            </p>
+
+
+            <a
+                href="tel:+919307945160"
+                class="contact-link"
+            >
+                📞 93079 45160
+            </a>
+
+
+            <a
+                href="#"
+                onclick="openWhatsApp(); return false;"
+                class="contact-link"
+            >
+                💬 WhatsApp
+            </a>
+
+
+            <a
+                href="https://instagram.com/photowala_ladka_07"
+                target="_blank"
+                class="contact-link"
+            >
+                📷 @photowala_ladka_07
+            </a>
+
+        </div>
+
+
+        <form
+            class="contact-form"
+            id="inquiryForm"
+        >
+
+
+            <div class="form-group">
+
+                <label>
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="fullName"
+                    required
+                    placeholder="Enter your full name"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Contact Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="contactNumber"
+                    required
+                    placeholder="Enter contact number"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Services
+                </label>
+
+                <select
+                    id="serviceType"
+                    required
+                >
+
+                    <option value="">
+                        Select Service
+                    </option>
+
+                    <option>
+                        Wedding Photography
+                    </option>
+
+                    <option>
+                        Pre-Wedding Photography
+                    </option>
+
+                    <option>
+                        Engagement Photography
+                    </option>
+
+                    <option>
+                        Reception Photography
+                    </option>
+
+                    <option>
+                        Birthday & Celebration
+                    </option>
+
+                    <option>
+                        Event Photography
+                    </option>
+
+                    <option>
+                        Portrait Photography
+                    </option>
+
+                    <option>
+                        Product Photography
+                    </option>
+
+                    <option>
+                        Cinematic Wedding Films
+                    </option>
+
+                    <option>
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Budget
+                </label>
+
+                <input
+                    type="text"
+                    id="budget"
+                    placeholder="Example: ₹50,000"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Message
+                </label>
+
+                <textarea
+                    id="message"
+                    placeholder="Tell us about your event..."
+                ></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="btn btn-gold"
+            >
+                SEND INQUIRY
+            </button>
+
+
+            <div
+                class="form-message"
+                id="formMessage"
+            ></div>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <p>
+
+        © 2026
+
+        <strong>
+            BSP Photography Studio
+        </strong>
+
+        · Bhavesh Satinge
+
+        · 93079 45160
+
+        · @photowala_ladka_07
+
+    </p>
+
+</footer>
+
+
+<!-- =========================================================
+     ADMIN BUTTON
+========================================================= -->
+
+<button
+    class="admin-open"
+    onclick="openAdmin()"
+    title="Admin Panel"
+    aria-label="Open Admin Panel"
+>
+    ⚙
+</button>
+
+<div class="admin-tooltip">
+    Admin Panel
+</div>
+
+
+<!-- =========================================================
+     ADMIN OVERLAY
+========================================================= -->
+
+<div
+    class="admin-overlay"
+    id="adminOverlay"
+>
+
+
+    <!-- =====================================================
+         ADMIN LOGIN
+    ====================================================== -->
+
+    <div
+        class="admin-login"
+        id="adminLogin"
+    >
+
+        <div class="admin-logo">
+            ⚙
+        </div>
+
+        <h2>
+            BSP Admin Panel
+        </h2>
+
+        <p class="admin-subtitle">
+            Secure studio management
+        </p>
+
+
+        <div class="form-group">
+
+            <label>
+                Username
+            </label>
+
+            <input
+                type="text"
+                id="adminUsername"
+                placeholder="Enter username"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="adminPassword"
+                placeholder="Enter password"
+            >
+
+        </div>
+
+
+        <div class="admin-login-buttons">
+
+            <button
+                class="btn btn-gold"
+                onclick="adminLogin()"
+            >
+                LOGIN
+            </button>
+
+            <button
+                class="btn btn-outline"
+                onclick="closeAdmin()"
+            >
+                CLOSE
+            </button>
+
+        </div>
+
+
+        <div
+            class="form-message"
+            id="loginMessage"
+        ></div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ADMIN DASHBOARD
+    ====================================================== -->
+
+    <div
+        class="admin-dashboard"
+        id="adminDashboard"
+    >
+
+
+        <div class="admin-header">
+
+            <div>
+
+                <h2>
+                    BSP Admin Panel
+                </h2>
+
+                <small>
+                    Manage gallery photos and customer inquiries
+                </small>
+
+            </div>
+
+
+            <div class="admin-actions">
+
+                <button
+                    class="btn btn-outline"
+                    onclick="adminLogout()"
+                >
+                    Logout
+                </button>
+
+
+                <button
+                    class="btn btn-gold"
+                    onclick="closeAdmin()"
+                >
+                    Close
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             GALLERY MANAGEMENT
+        ================================================== -->
+
+        <div class="admin-card">
+
+            <h3>
+                Gallery Management
+            </h3>
+
+
+            <div class="admin-upload-row">
+
+
+                <div>
+
+                    <label
+                        style="font-size:12px;color:#aaa;"
+                    >
+                        Select Category
+                    </label>
+
+
+                    <select
+                        id="uploadCategory"
+                    >
+
+                        <option value="Wedding Photography">
+                            Wedding Photography
+                        </option>
+
+                        <option value="Pre-Wedding">
+                            Pre-Wedding
+                        </option>
+
+                        <option value="Portraits">
+                            Portraits
+                        </option>
+
+                        <option value="Events">
+                            Events
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label
+                        style="font-size:12px;color:#aaa;"
+                    >
+                        Select Photo
+                    </label>
+
+
+                    <input
+                        type="file"
+                        id="galleryFile"
+                        accept="image/*"
+                    >
+
+                </div>
+
+
+                <button
+                    class="btn btn-gold"
+                    onclick="uploadGalleryPhoto()"
+                >
+                    UPLOAD PHOTO
+                </button>
+
+            </div>
+
+
+            <div
+                class="form-message"
+                id="uploadMessage"
+            ></div>
+
+        </div>
+
+
+        <!-- =================================================
+             UPLOADED PHOTOS
+        ================================================== -->
+
+        <div class="admin-card">
+
+            <h3>
+                Uploaded Gallery Photos
+            </h3>
+
+
+            <div
+                class="admin-list"
+                id="adminGalleryList"
+            ></div>
+
+        </div>
+
+
+        <!-- =================================================
+             CUSTOMER INQUIRIES
+        ================================================== -->
+
+        <div class="admin-card">
+
+            <h3>
+                Customer Inquiries
+            </h3>
+
+
+            <div
+                class="admin-list"
+                id="adminInquiryList"
+            ></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   SUPABASE INITIALIZATION
+========================================================= */
+
+const SUPABASE_URL = 'https://luauizpgvcmokrsftcxa.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_QKxq6XdYvaqeGQjVEyha7A_C6FKZx_B';
+
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+
+/* =========================================================
+   STORAGE KEYS
+========================================================= */
+
+const GALLERY_KEY = "bsp_gallery";
+const INQUIRY_KEY = "bsp_inquiries";
+
+
+/* =========================================================
+   WHATSAPP PREDEFINED MESSAGE
+========================================================= */
+
+const WHATSAPP_NUMBER = "919307945160";
+
+const DEFAULT_WHATSAPP_MESSAGE =
+`Hello BSP Photography Studio,
+
+I am interested in booking your photography services.
+
+I would like to know about your packages, pricing and availability.
+
+Please share the details.
+
+Thank you.`;
+
+
+function openWhatsApp(customMessage){
+
+    const message =
+        customMessage || DEFAULT_WHATSAPP_MESSAGE;
+
+    const url =
+        "https://wa.me/" +
+        WHATSAPP_NUMBER +
+        "?text=" +
+        encodeURIComponent(message);
+
+    window.open(
+        url,
+        "_blank",
+        "noopener"
+    );
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+function toggleMobileMenu(){
+
+    const menu =
+        document.getElementById("mobileMenu");
+
+    menu.classList.toggle("active");
+
+}
+
+
+function closeMobileMenu(){
+
+    const menu =
+        document.getElementById("mobileMenu");
+
+    menu.classList.remove("active");
+
+}
+
+
+/* Close mobile menu after clicking outside */
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        const menu =
+            document.getElementById("mobileMenu");
+
+        const toggle =
+            document.getElementById("menuToggle");
+
+        if(
+            menu.classList.contains("active") &&
+            !menu.contains(event.target) &&
+            !toggle.contains(event.target)
+        ){
+
+            menu.classList.remove("active");
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   HTML ESCAPE
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   ADMIN OPEN
+========================================================= */
+
+function openAdmin(){
+
+    const overlay =
+        document.getElementById("adminOverlay");
+
+    const login =
+        document.getElementById("adminLogin");
+
+    const dashboard =
+        document.getElementById("adminDashboard");
+
+
+    overlay.classList.add("active");
+
+    login.style.display = "block";
+
+    dashboard.classList.remove("active");
+
+}
+
+
+/* =========================================================
+   ADMIN CLOSE
+========================================================= */
+
+function closeAdmin(){
+
+    document
+        .getElementById("adminOverlay")
+        .classList.remove("active");
+
+}
+
+
+/* =========================================================
+   ADMIN LOGIN
+========================================================= */
+
+function adminLogin(){
+
+    const username =
+        document
+            .getElementById("adminUsername")
+            .value
+            .trim();
+
+
+    const password =
+        document
+            .getElementById("adminPassword")
+            .value;
+
+
+    const message =
+        document.getElementById("loginMessage");
+
+
+    if(
+        username === "admin" &&
+        password === "bsp123"
+    ){
+
+        document
+            .getElementById("adminLogin")
+            .style.display = "none";
+
+
+        document
+            .getElementById("adminDashboard")
+            .classList.add("active");
+
+
+        message.textContent = "";
+
+
+        loadAdminGallery();
+
+        loadAdminInquiries();
+
+    }
+    else{
+
+        message.textContent =
+            "Invalid username or password.";
+
+    }
+
+}
+
+
+/* =========================================================
+   ENTER KEY LOGIN
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        const overlay =
+            document.getElementById("adminOverlay");
+
+        if(
+            event.key === "Enter" &&
+            overlay.classList.contains("active")
+        ){
+
+            const login =
+                document.getElementById("adminLogin");
+
+            if(login.style.display !== "none"){
+
+                adminLogin();
+
+            }
+
+        }
+
+        if(event.key === "Escape"){
+
+            closeAdmin();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ADMIN LOGOUT
+========================================================= */
+
+function adminLogout(){
+
+    document
+        .getElementById("adminDashboard")
+        .classList.remove("active");
+
+
+    document
+        .getElementById("adminLogin")
+        .style.display = "block";
+
+
+    document
+        .getElementById("adminUsername")
+        .value = "";
+
+
+    document
+        .getElementById("adminPassword")
+        .value = "";
+
+}
+
+
+/* =========================================================
+   GET GALLERY
+========================================================= */
+
+function getGallery(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                GALLERY_KEY
+            ) || "[]"
+        );
+
+    }
+    catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================================================
+   SAVE GALLERY
+========================================================= */
+
+function saveGallery(data){
+
+    localStorage.setItem(
+        GALLERY_KEY,
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* =========================================================
+   UPLOAD GALLERY PHOTO
+========================================================= */
+
+function uploadGalleryPhoto(){
+
+    const fileInput =
+        document.getElementById(
+            "galleryFile"
+        );
+
+
+    const category =
+        document
+            .getElementById("uploadCategory")
+            .value;
+
+
+    const message =
+        document.getElementById(
+            "uploadMessage"
+        );
+
+
+    const file =
+        fileInput.files[0];
+
+
+    if(!file){
+
+        message.textContent =
+            "Please select a photo first.";
+
+        return;
+
+    }
+
+
+    if(!file.type.startsWith("image/")){
+
+        message.textContent =
+            "Please select an image file.";
+
+        return;
+
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(e){
+
+            const gallery =
+                getGallery();
+
+
+            const duplicate =
+                gallery.some(
+                    photo =>
+                        photo.src === e.target.result
+                );
+
+
+            if(duplicate){
+
+                message.textContent =
+                    "This photo is already uploaded. Duplicate photo not added.";
+
+                fileInput.value = "";
+
+                return;
+
+            }
+
+
+            const newPhoto = {
+
+                id:
+                    Date.now() +
+                    "_" +
+                    Math.random()
+                        .toString(36)
+                        .substring(2,8),
+
+                src:
+                    e.target.result,
+
+                category:
+                    category,
+
+                fileName:
+                    file.name,
+
+                uploadedAt:
+                    new Date()
+                        .toLocaleString("en-IN")
+
+            };
+
+
+            gallery.push(newPhoto);
+
+
+            try{
+
+                saveGallery(gallery);
+
+
+                message.textContent =
+                    "Photo uploaded successfully.";
+
+
+                fileInput.value = "";
+
+
+                loadAdminGallery();
+
+                renderUploadedGallery();
+
+            }
+            catch(error){
+
+                message.textContent =
+                    "Photo is too large for browser storage. Use a smaller image.";
+
+            }
+
+        };
+
+
+    reader.readAsDataURL(file);
+
+}
+
+
+/* =========================================================
+   CATEGORY ID
+========================================================= */
+
+function getCategoryId(category){
+
+    if(
+        category ===
+        "Wedding Photography"
+    ){
+
+        return "gallery-wedding";
+
+    }
+
+
+    if(
+        category ===
+        "Pre-Wedding"
+    ){
+
+        return "gallery-prewedding";
+
+    }
+
+
+    if(
+        category ===
+        "Portraits"
+    ){
+
+        return "gallery-portraits";
+
+    }
+
+
+    if(
+        category ===
+        "Events"
+    ){
+
+        return "gallery-events";
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =========================================================
+   RENDER UPLOADED GALLERY
+========================================================= */
+
+function renderUploadedGallery(){
+
+    const gallery =
+        getGallery();
+
+
+    const existingSources =
+        new Set();
+
+
+    document
+        .querySelectorAll(
+            ".gallery-item img"
+        )
+        .forEach(img => {
+
+            existingSources.add(
+                img.src
+            );
+
+        });
+
+
+    gallery.forEach(photo => {
+
+        if(
+            existingSources.has(
+                photo.src
+            )
+        ){
+
+            return;
+
+        }
+
+
+        const categoryId =
+            getCategoryId(
+                photo.category
+            );
+
+
+        if(!categoryId){
+
+            return;
+
+        }
+
+
+        const container =
+            document.getElementById(
+                categoryId
+            );
+
+
+        if(!container){
+
+            return;
+
+        }
+
+
+        if(
+            container.querySelector(
+                `[data-upload-id="${photo.id}"]`
+            )
+        ){
+
+            return;
+
+        }
+
+
+        const item =
+            document.createElement(
+                "div"
+            );
+
+
+        item.className =
+            "gallery-item";
+
+
+        item.setAttribute(
+            "data-upload-id",
+            photo.id
+        );
+
+
+        item.innerHTML = `
+
+            <img
+                src="${photo.src}"
+                alt="${escapeHTML(photo.category)}"
+                loading="lazy"
+            >
+
+            <div class="gallery-overlay"></div>
+
+        `;
+
+
+        container.appendChild(item);
+
+
+        existingSources.add(
+            photo.src
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   ADMIN GALLERY LIST
+========================================================= */
+
+function loadAdminGallery(){
+
+    const list =
+        document.getElementById(
+            "adminGalleryList"
+        );
+
+
+    const gallery =
+        getGallery();
+
+
+    if(gallery.length === 0){
+
+        list.innerHTML =
+            `
+            <p style="color:#777;">
+                No uploaded photos yet.
+            </p>
+            `;
+
+        return;
+
+    }
+
+
+    list.innerHTML = "";
+
+
+    gallery
+        .slice()
+        .reverse()
+        .forEach(photo => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "admin-item";
+
+
+            item.innerHTML = `
+
+                <div class="admin-item-info">
+
+                    <img
+                        src="${photo.src}"
+                        alt=""
+                    >
+
+                    <div class="admin-item-text">
+
+                        <strong>
+                            ${escapeHTML(
+                                photo.category
+                            )}
+                        </strong>
+
+                        <div
+                            style="
+                                font-size:11px;
+                                color:#777;
+                                margin-top:3px;
+                            "
+                        >
+                            ${escapeHTML(
+                                photo.fileName ||
+                                "Uploaded photo"
+                            )}
+                        </div>
+
+                        <div
+                            style="
+                                font-size:10px;
+                                color:#555;
+                                margin-top:3px;
+                            "
+                        >
+                            ${escapeHTML(
+                                photo.uploadedAt ||
+                                ""
+                            )}
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="delete-btn"
+                    onclick="deleteGalleryPhoto('${photo.id}')"
+                >
+                    Delete
+                </button>
+
+            `;
+
+
+            list.appendChild(item);
+
+        });
+
+}
+
+
+/* =========================================================
+   DELETE GALLERY PHOTO
+========================================================= */
+
+function deleteGalleryPhoto(id){
+
+    const gallery =
+        getGallery().filter(
+            photo =>
+                photo.id !== id
+        );
+
+
+    saveGallery(gallery);
+
+
+    loadAdminGallery();
+
+
+    const oldPhoto =
+        document.querySelector(
+            `[data-upload-id="${id}"]`
+        );
+
+
+    if(oldPhoto){
+
+        oldPhoto.remove();
+
+    }
+
+}
+
+
+/* =========================================================
+   INQUIRY FORM WITH SUPABASE
+========================================================= */
+
+document
+    .getElementById("inquiryForm")
+    .addEventListener(
+        "submit",
+        async function(e){
+
+            e.preventDefault();
+
+            const name = document.getElementById("fullName").value.trim();
+            const phone = document.getElementById("contactNumber").value.trim();
+            const service = document.getElementById("serviceType").value;
+            const budget = document.getElementById("budget").value.trim();
+            const message = document.getElementById("message").value.trim();
+            const date = new Date().toLocaleString("en-IN");
+
+            const formMsg = document.getElementById("formMessage");
+            formMsg.textContent = "Sending inquiry...";
+
+            // 1. SUPABASE DATABASE MADHE DATA SAVING
+            const { data, error } = await supabaseClient
+                .from('inquiries')
+                .insert([
+                    {
+                        name: name,
+                        phone: phone,
+                        service: service,
+                        budget: budget || "Not specified",
+                        message: message || "No message",
+                        created_at: new Date()
+                    }
+                ]);
+
+            if (error) {
+                console.error("Supabase Error:", error);
+                formMsg.textContent = "Error saving to database, but opening WhatsApp...";
+            } else {
+                formMsg.textContent = "Thank you! Your inquiry has been received.";
+            }
+
+            // 2. LOCALSTORAGE BACKUP
+            const inquiry = {
+                id: Date.now() + "_" + Math.random().toString(36).substring(2,8),
+                name: name,
+                phone: phone,
+                service: service,
+                budget: budget,
+                message: message,
+                date: date
+            };
+
+            const inquiries = JSON.parse(localStorage.getItem(INQUIRY_KEY) || "[]");
+            inquiries.push(inquiry);
+            localStorage.setItem(INQUIRY_KEY, JSON.stringify(inquiries));
+
+            // 3. WHATSAPP MESSAGE REDIRECT
+            const whatsappText =
+`Hello BSP Photography Studio,
+
+I am interested in booking your photography services.
+
+Name: ${inquiry.name}
+
+Contact Number: ${inquiry.phone}
+
+Service: ${inquiry.service}
+
+Budget: ${inquiry.budget || "Not specified"}
+
+Message:
+${inquiry.message || "I would like to know more about your packages, availability and pricing."}
+
+Thank you.`;
+
+            this.reset();
+
+            setTimeout(
+                function(){
+                    openWhatsApp(whatsappText);
+                },
+                400
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   GET INQUIRIES
+========================================================= */
+
+function getInquiries(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                INQUIRY_KEY
+            ) || "[]"
+        );
+
+    }
+    catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD INQUIRIES
+========================================================= */
+
+function loadAdminInquiries(){
+
+    const list =
+        document.getElementById(
+            "adminInquiryList"
+        );
+
+
+    const inquiries =
+        getInquiries();
+
+
+    if(inquiries.length === 0){
+
+        list.innerHTML =
+            `
+            <p style="color:#777;">
+                No customer inquiries yet.
+            </p>
+            `;
+
+        return;
+
+    }
+
+
+    list.innerHTML = "";
+
+
+    inquiries
+        .slice()
+        .reverse()
+        .forEach(inquiry => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "admin-item";
+
+
+            item.style.alignItems =
+                "flex-start";
+
+
+            item.innerHTML = `
+
+                <div>
+
+                    <strong
+                        style="
+                            color:#d4af37;
+                            font-size:15px;
+                        "
+                    >
+                        ${escapeHTML(
+                            inquiry.name
+                        )}
+                    </strong>
+
+
+                    <div
+                        style="
+                            margin-top:7px;
+                            color:#ccc;
+                        "
+                    >
+                        📞
+                        ${escapeHTML(
+                            inquiry.phone
+                        )}
+                    </div>
+
+
+                    <div
+                        style="
+                            color:#aaa;
+                            margin-top:4px;
+                        "
+                    >
+                        Service:
+                        ${escapeHTML(
+                            inquiry.service
+                        )}
+                    </div>
+
+
+                    <div
+                        style="
+                            color:#aaa;
+                            margin-top:4px;
+                        "
+                    >
+                        Budget:
+                        ${escapeHTML(
+                            inquiry.budget ||
+                            "Not specified"
+                        )}
+                    </div>
+
+
+                    <div
+                        style="
+                            color:#aaa;
+                            margin-top:7px;
+                        "
+                    >
+                        ${escapeHTML(
+                            inquiry.message ||
+                            "No message"
+                        )}
+                    </div>
+
+
+                    <div
+                        style="
+                            font-size:11px;
+                            color:#666;
+                            margin-top:8px;
+                        "
+                    >
+                        ${escapeHTML(
+                            inquiry.date
+                        )}
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="delete-btn"
+                    onclick="deleteInquiry('${inquiry.id}')"
+                >
+                    Delete
+                </button>
+
+            `;
+
+
+            list.appendChild(item);
+
+        });
+
+}
+
+
+/* =========================================================
+   DELETE INQUIRY
+========================================================= */
+
+function deleteInquiry(id){
+
+    const inquiries =
+        getInquiries().filter(
+            item =>
+                item.id !== id
+        );
+
+
+    localStorage.setItem(
+        INQUIRY_KEY,
+        JSON.stringify(
+            inquiries
+        )
+    );
+
+
+    loadAdminInquiries();
+
+}
+
+
+/* =========================================================
+   REMOVE ANY ACCIDENTAL DUPLICATE DEFAULT PHOTOS
+========================================================= */
+
+function removeDuplicateDefaultPhotos(){
+
+    const seen =
+        new Set();
+
+
+    document
+        .querySelectorAll(
+            ".gallery-item img"
+        )
+        .forEach(img => {
+
+            const source =
+                img.src;
+
+
+            const item =
+                img.closest(
+                    ".gallery-item"
+                );
+
+
+            if(seen.has(source)){
+
+                if(item){
+
+                    item.remove();
+
+                }
+
+            }
+            else{
+
+                seen.add(source);
+
+            }
+
+        });
+
+}
+
+
+/* =========================================================
+   INITIAL LOAD
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        removeDuplicateDefaultPhotos();
+
+        renderUploadedGallery();
+
+    }
+);
+
+</script>
+
+</body>
+</html>
